@@ -14,8 +14,7 @@ Official JavaScript / TypeScript packages for [l10n4x](https://github.com/xdvi/l
 
 ```bash
 # 1. Build WASM from the Rust repo (sibling checkout)
-#    ../l10n4x or ../meddix/l10n4x — `pnpm link-wasm` auto-detects either.
-cd ../meddix/l10n4x   # or ../l10n4x
+cd ../l10n4x
 cargo install wasm-pack --locked
 wasm-pack build packages/wasm --target web --out-dir ../l10n4x-js/_wasm_pkg --out-name l10n4x
 
@@ -70,6 +69,10 @@ examples/vite-spa → minimal demo
 ## Relationship to `l10n4x` CLI
 
 The Rust CLI (`l10n4x build`) should emit a **thin** `generated.ts` with key hashes and types only. Runtime logic lives in `@l10n4x/runtime`; React integration in `@l10n4x/react`.
+
+## Enterprise adoption
+
+For governance, CI/CD, namespace ownership, OTA, and observability patterns (aligned with Angular compile-time i18n and SAP message-class workflows), see the [Enterprise Adoption Guide](https://github.com/xdvi/l10n4x/blob/main/docs/ENTERPRISE_ADOPTION.md) in the Rust repository.
 
 ## License
 
