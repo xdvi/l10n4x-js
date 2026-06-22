@@ -4,20 +4,14 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 WASM_PKG="${ROOT}/_wasm_pkg"
 
-RUST_REPO=""
-for candidate in "${ROOT}/../l10n4x" "${ROOT}/../meddix/l10n4x"; do
-  if [[ -d "${candidate}/packages/wasm" ]]; then
-    RUST_REPO="${candidate}"
-    break
-  fi
-done
+RUST_REPO="${ROOT}/../l10n4x"
 
 if [[ ! -f "${WASM_PKG}/package.json" ]]; then
-  if [[ -n "${RUST_REPO}" ]]; then
+  if [[ -d "${RUST_REPO}/packages/wasm" ]]; then
     echo "Building WASM from ${RUST_REPO}…"
     (cd "${RUST_REPO}" && wasm-pack build packages/wasm --target web --out-dir "${WASM_PKG}" --out-name l10n4x)
   else
-    echo "error: _wasm_pkg/ missing and no l10n4x checkout found (tried ../l10n4x, ../meddix/l10n4x)." >&2
+    echo "error: _wasm_pkg/ missing and ${RUST_REPO} not found." >&2
     echo "Run: wasm-pack build …/l10n4x/packages/wasm --target web --out-dir ${WASM_PKG} --out-name l10n4x" >&2
     exit 1
   fi

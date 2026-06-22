@@ -1,6 +1,6 @@
 {
   "name": "@l10n4x/runtime",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Isomorphic l10n4x runtime: loaders, init, translate",
   "license": "MIT",
   "type": "module",

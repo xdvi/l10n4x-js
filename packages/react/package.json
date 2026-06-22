@@ -1,6 +1,6 @@
 {
   "name": "@l10n4x/react",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "React bindings for l10n4x — Provider, hooks, locale subscriptions",
   "license": "MIT",
   "type": "module",

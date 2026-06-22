@@ -70,6 +70,31 @@ examples/vite-spa → minimal demo
 
 The Rust CLI (`l10n4x build`) should emit a **thin** `generated.ts` with key hashes and types only. Runtime logic lives in `@l10n4x/runtime`; React integration in `@l10n4x/react`.
 
+## Modular bundles & OTA
+
+```ts
+import { createL10n } from "@l10n4x/runtime";
+
+const l10n = createL10n({
+  outputDir: "/locales",
+  verifyPublicKey: "…",
+  fallback: "en",
+  bundles: { mode: "modular", preload: ["common"] },
+});
+
+await l10n.initialize();
+await l10n.loadNamespace("es", "billing");
+
+// Monolith OTA (one rollback snapshot per locale)
+await l10n.otaReload("en", pakBytes);
+if (l10n.otaCanRollback("en")) await l10n.otaRollback("en");
+
+// Modular hot-swap per namespace
+await l10n.otaReloadNamespace("en", "common", namespacePakBytes);
+```
+
+Requires WASM built from l10n4x **v0.4.0+** (`l10n4x_load_namespace_bytes`, `l10n4x_ota_*` exports).
+
 ## Enterprise adoption
 
 For governance, CI/CD, namespace ownership, OTA, and observability patterns (aligned with Angular compile-time i18n and SAP message-class workflows), see the [Enterprise Adoption Guide](https://github.com/xdvi/l10n4x/blob/main/docs/ENTERPRISE_ADOPTION.md) in the Rust repository.

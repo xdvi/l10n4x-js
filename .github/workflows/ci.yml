@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: pnpm
+
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Install wasm-pack
+        run: cargo install wasm-pack --locked
+
+      - name: Checkout l10n4x (WASM source)
+        uses: actions/checkout@v4
+        with:
+          repository: xdvi/l10n4x
+          path: l10n4x
+          ref: main
+
+      - name: Build and link WASM
+        run: |
+          wasm-pack build l10n4x/packages/wasm --target web --out-dir _wasm_pkg --out-name l10n4x
+          pnpm install
+          pnpm link-wasm
+
+      - run: pnpm build
+      - run: pnpm test
+      - run: pnpm typecheck
+
+  publish:
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9.15.0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          registry-url: https://registry.npmjs.org
+          cache: pnpm
+
+      - run: pnpm install
+      - run: pnpm build
+
+      - name: Publish @l10n4x/runtime
+        run: pnpm --filter @l10n4x/runtime publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @l10n4x/react
+        run: pnpm --filter @l10n4x/react publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @l10n4x/wasm
+        run: pnpm --filter @l10n4x/wasm publish --access public --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

@@ -1,4 +1,6 @@
 export { createL10n } from "./engine.js";
+export { fetchNamespaceManifest, namespacesForLocale } from "./manifest.js";
+export type { NamespaceManifest } from "./manifest.js";
 export { defineKeys } from "./keys.js";
 export {
   autoPakLoader,

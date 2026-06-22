@@ -5,6 +5,14 @@ declare module "@l10n4x/wasm" {
     l10n4x_set_decrypt_key(key: Uint8Array): boolean;
     l10n4x_set_fallback_locale(locale: string): void;
     l10n4x_load_pak_bytes(bytes: Uint8Array, locale: string): void;
+    l10n4x_load_namespace_bytes(
+      bytes: Uint8Array,
+      locale: string,
+      namespace: string,
+    ): void;
+    l10n4x_ota_reload_pak(locale: string, bytes: Uint8Array): void;
+    l10n4x_ota_rollback(locale: string): void;
+    l10n4x_ota_can_rollback(locale: string): boolean;
     l10n4x_translate(locale: string, keyHash: number): string;
     l10n4x_translate_with_params(
       locale: string,
@@ -20,6 +28,14 @@ declare module "@l10n4x/wasm" {
   export function l10n4x_set_decrypt_key(key: Uint8Array): boolean;
   export function l10n4x_set_fallback_locale(locale: string): void;
   export function l10n4x_load_pak_bytes(bytes: Uint8Array, locale: string): void;
+  export function l10n4x_load_namespace_bytes(
+    bytes: Uint8Array,
+    locale: string,
+    namespace: string,
+  ): void;
+  export function l10n4x_ota_reload_pak(locale: string, bytes: Uint8Array): void;
+  export function l10n4x_ota_rollback(locale: string): void;
+  export function l10n4x_ota_can_rollback(locale: string): boolean;
   export function l10n4x_translate(locale: string, keyHash: number): string;
   export function l10n4x_translate_with_params(
     locale: string,
