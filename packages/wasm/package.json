@@ -1,0 +1,40 @@
+{
+  "name": "@l10n4x/wasm",
+  "version": "0.1.0",
+  "description": "npm entry point for the l10n4x WebAssembly runtime",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --clean --external l10n4x-wasm",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "peerDependencies": {
+    "l10n4x-wasm": ">=0.2.0"
+  },
+  "peerDependenciesMeta": {
+    "l10n4x-wasm": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xdvi/l10n4x-js.git",
+    "directory": "packages/wasm"
+  }
+}

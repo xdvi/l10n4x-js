@@ -1,0 +1,52 @@
+{
+  "name": "@l10n4x/react",
+  "version": "0.1.0",
+  "description": "React bindings for l10n4x — Provider, hooks, locale subscriptions",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --external react --clean",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@l10n4x/runtime": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "l10n4x-wasm": ">=0.2.0"
+  },
+  "peerDependenciesMeta": {
+    "l10n4x-wasm": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.2.0",
+    "@types/react": "^19.0.10",
+    "jsdom": "^26.0.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2",
+    "vitest": "^3.0.9"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xdvi/l10n4x-js.git",
+    "directory": "packages/react"
+  }
+}

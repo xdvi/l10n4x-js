@@ -1,0 +1,23 @@
+{
+  "name": "l10n4x-js",
+  "private": true,
+  "version": "0.0.0",
+  "description": "JavaScript / TypeScript runtime and React bindings for l10n4x",
+  "license": "MIT",
+  "scripts": {
+    "build": "pnpm -r run build",
+    "test": "pnpm -r run test",
+    "lint": "pnpm -r run lint",
+    "typecheck": "pnpm -r run typecheck",
+    "link-wasm": "bash scripts/link-wasm.sh"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "pnpm": {
+    "peerDependencyRules": {
+      "ignoreMissing": ["l10n4x-wasm"]
+    }
+  }
+}
