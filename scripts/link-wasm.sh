@@ -27,8 +27,17 @@ if [[ ! -f "${WASM_PKG}/package.json" ]]; then
   fi
 fi
 
-for pkg in wasm runtime react vue svelte angular; do
-  target="${ROOT}/packages/${pkg}/node_modules/l10n4x-wasm"
+LINK_TARGETS=(
+  packages/wasm
+  packages/runtime
+  bindings/react
+  bindings/vue
+  bindings/svelte
+  bindings/angular
+)
+
+for pkg_path in "${LINK_TARGETS[@]}"; do
+  target="${ROOT}/${pkg_path}/node_modules/l10n4x-wasm"
   mkdir -p "$(dirname "${target}")"
   rm -rf "${target}"
   ln -sfn "${WASM_PKG}" "${target}"

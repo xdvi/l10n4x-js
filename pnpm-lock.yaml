@@ -12,42 +12,11 @@ importers:
         specifier: ^5.7.0
         version: 5.9.3
 
-  examples/vite-spa:
+  bindings/angular:
     dependencies:
-      '@l10n4x/react':
-        specifier: workspace:*
-        version: link:../../packages/react
       '@l10n4x/runtime':
         specifier: workspace:*
         version: link:../../packages/runtime
-      react:
-        specifier: ^19.0.0
-        version: 19.2.7
-      react-dom:
-        specifier: ^19.0.0
-        version: 19.2.7(react@19.2.7)
-    devDependencies:
-      '@types/react':
-        specifier: ^19.0.10
-        version: 19.2.17
-      '@types/react-dom':
-        specifier: ^19.0.4
-        version: 19.2.3(@types/react@19.2.17)
-      '@vitejs/plugin-react':
-        specifier: ^4.3.4
-        version: 4.7.0(vite@6.4.3(@types/node@22.20.0))
-      typescript:
-        specifier: ^5.8.2
-        version: 5.9.3
-      vite:
-        specifier: ^6.2.0
-        version: 6.4.3(@types/node@22.20.0)
-
-  packages/angular:
-    dependencies:
-      '@l10n4x/runtime':
-        specifier: workspace:*
-        version: link:../runtime
     devDependencies:
       '@angular/core':
         specifier: ^19.1.0
@@ -62,11 +31,11 @@ importers:
         specifier: ^5.8.2
         version: 5.9.3
 
-  packages/react:
+  bindings/react:
     dependencies:
       '@l10n4x/runtime':
         specifier: workspace:*
-        version: link:../runtime
+        version: link:../../packages/runtime
     devDependencies:
       '@testing-library/dom':
         specifier: ^10.4.0
@@ -96,6 +65,75 @@ importers:
         specifier: ^3.0.9
         version: 3.2.6(@types/node@22.20.0)(jsdom@26.1.0)
 
+  bindings/svelte:
+    dependencies:
+      '@l10n4x/runtime':
+        specifier: workspace:*
+        version: link:../../packages/runtime
+    devDependencies:
+      svelte:
+        specifier: ^5.19.0
+        version: 5.56.3
+      tsup:
+        specifier: ^8.4.0
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.9
+        version: 3.2.6(@types/node@22.20.0)(jsdom@26.1.0)
+
+  bindings/vue:
+    dependencies:
+      '@l10n4x/runtime':
+        specifier: workspace:*
+        version: link:../../packages/runtime
+    devDependencies:
+      tsup:
+        specifier: ^8.4.0
+        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+      vitest:
+        specifier: ^3.0.9
+        version: 3.2.6(@types/node@22.20.0)(jsdom@26.1.0)
+      vue:
+        specifier: ^3.5.13
+        version: 3.5.38(typescript@5.9.3)
+
+  examples/vite-spa:
+    dependencies:
+      '@l10n4x/react':
+        specifier: workspace:*
+        version: link:../../bindings/react
+      '@l10n4x/runtime':
+        specifier: workspace:*
+        version: link:../../packages/runtime
+      react:
+        specifier: ^19.0.0
+        version: 19.2.7
+      react-dom:
+        specifier: ^19.0.0
+        version: 19.2.7(react@19.2.7)
+    devDependencies:
+      '@types/react':
+        specifier: ^19.0.10
+        version: 19.2.17
+      '@types/react-dom':
+        specifier: ^19.0.4
+        version: 19.2.3(@types/react@19.2.17)
+      '@vitejs/plugin-react':
+        specifier: ^4.3.4
+        version: 4.7.0(vite@6.4.3(@types/node@22.20.0))
+      typescript:
+        specifier: ^5.8.2
+        version: 5.9.3
+      vite:
+        specifier: ^6.2.0
+        version: 6.4.3(@types/node@22.20.0)
+
   packages/runtime:
     dependencies:
       '@l10n4x/wasm':
@@ -114,44 +152,6 @@ importers:
       vitest:
         specifier: ^3.0.9
         version: 3.2.6(@types/node@22.20.0)(jsdom@26.1.0)
-
-  packages/svelte:
-    dependencies:
-      '@l10n4x/runtime':
-        specifier: workspace:*
-        version: link:../runtime
-    devDependencies:
-      svelte:
-        specifier: ^5.19.0
-        version: 5.56.3
-      tsup:
-        specifier: ^8.4.0
-        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.8.2
-        version: 5.9.3
-      vitest:
-        specifier: ^3.0.9
-        version: 3.2.6(@types/node@22.20.0)(jsdom@26.1.0)
-
-  packages/vue:
-    dependencies:
-      '@l10n4x/runtime':
-        specifier: workspace:*
-        version: link:../runtime
-    devDependencies:
-      tsup:
-        specifier: ^8.4.0
-        version: 8.5.1(postcss@8.5.15)(typescript@5.9.3)
-      typescript:
-        specifier: ^5.8.2
-        version: 5.9.3
-      vitest:
-        specifier: ^3.0.9
-        version: 3.2.6(@types/node@22.20.0)(jsdom@26.1.0)
-      vue:
-        specifier: ^3.5.13
-        version: 3.5.38(typescript@5.9.3)
 
   packages/wasm:
     devDependencies:

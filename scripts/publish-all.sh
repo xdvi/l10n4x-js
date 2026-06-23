@@ -63,14 +63,19 @@ fi
 
 publish_dir "${WASM_PKG}"
 
-FRAMEWORK_PKGS=(
+CORE_PKGS=(
   "packages/wasm"
   "packages/runtime"
-  "packages/react"
-  "packages/vue"
-  "packages/svelte"
-  "packages/angular"
 )
+
+BINDING_PKGS=(
+  "bindings/react"
+  "bindings/vue"
+  "bindings/svelte"
+  "bindings/angular"
+)
+
+FRAMEWORK_PKGS=("${CORE_PKGS[@]}" "${BINDING_PKGS[@]}")
 
 for dir in "${FRAMEWORK_PKGS[@]}"; do
   if [[ -f "${ROOT}/${dir}/package.json" ]]; then

@@ -40,6 +40,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/xdvi/l10n4x-js.git",
-    "directory": "packages/vue"
+    "directory": "bindings/vue"
   }
 }

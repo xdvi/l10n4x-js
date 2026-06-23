@@ -1,19 +1,19 @@
 # l10n4x-js
 
-JavaScript/TypeScript packages for [l10n4x](https://github.com/xdvi/l10n4x): WASM engine, shared runtime, and framework adapters.
+JavaScript/TypeScript packages for [l10n4x](https://github.com/xdvi/l10n4x): WASM engine, shared runtime, and framework bindings.
 
 The Rust CLI (`l10n4x generate`) emits **type-safe keys only** (`generated.ts`). All runtime and framework glue lives here.
 
 ## Packages
 
-| Package | npm | Description |
-|---------|-----|-------------|
+| Path | npm | Description |
+|------|-----|-------------|
 | `packages/wasm` | `@l10n4x/wasm` | WASM bindings (from `l10n4x-wasm` crate) |
 | `packages/runtime` | `@l10n4x/runtime` | `L10nEngine`, loaders, OTA, modular bundles |
-| `packages/react` | `@l10n4x/react` | React context + hooks |
-| `packages/vue` | `@l10n4x/vue` | Vue 3 plugin + `useTranslation` |
-| `packages/svelte` | `@l10n4x/svelte` | Svelte stores |
-| `packages/angular` | `@l10n4x/angular` | `I18nService`, `I18nPipe`, `provideL10n()` |
+| `bindings/react` | `@l10n4x/react` | React context + hooks |
+| `bindings/vue` | `@l10n4x/vue` | Vue 3 plugin + `useTranslation` |
+| `bindings/svelte` | `@l10n4x/svelte` | Svelte stores |
+| `bindings/angular` | `@l10n4x/angular` | `I18nService`, `I18nPipe`, `provideL10n()` |
 
 ## Tree
 
@@ -21,7 +21,8 @@ The Rust CLI (`l10n4x generate`) emits **type-safe keys only** (`generated.ts`).
 l10n4x-js/
 ├── packages/
 │   ├── wasm/
-│   ├── runtime/
+│   └── runtime/
+├── bindings/
 │   ├── react/
 │   ├── vue/
 │   ├── svelte/
@@ -59,7 +60,7 @@ Publish in dependency order (see `scripts/publish-all.sh`):
 l10n4x generate --target typescript
 ```
 
-Install the adapters you need:
+Install the bindings you need:
 
 ```bash
 pnpm add @l10n4x/runtime @l10n4x/react

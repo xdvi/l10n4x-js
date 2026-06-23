@@ -1,7 +1,7 @@
 {
-  "name": "@l10n4x/react",
+  "name": "@l10n4x/svelte",
   "version": "0.2.0",
-  "description": "React bindings for l10n4x — Provider, hooks, locale subscriptions",
+  "description": "Svelte bindings for l10n4x — stores and context helpers",
   "license": "MIT",
   "type": "module",
   "sideEffects": false,
@@ -16,7 +16,7 @@
   },
   "files": ["dist", "README.md"],
   "scripts": {
-    "build": "tsup src/index.ts --format esm --dts --external react --clean",
+    "build": "tsup src/index.ts --format esm --dts --external svelte --clean",
     "test": "vitest run",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "tsc -p tsconfig.json --noEmit"
@@ -25,21 +25,14 @@
     "@l10n4x/runtime": "workspace:*"
   },
   "peerDependencies": {
-    "react": ">=18",
+    "svelte": ">=4",
     "l10n4x-wasm": ">=0.2.0"
   },
   "peerDependenciesMeta": {
-    "l10n4x-wasm": {
-      "optional": true
-    }
+    "l10n4x-wasm": { "optional": true }
   },
   "devDependencies": {
-    "@testing-library/dom": "^10.4.0",
-    "@testing-library/react": "^16.2.0",
-    "@types/react": "^19.0.10",
-    "jsdom": "^26.0.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "svelte": "^5.19.0",
     "tsup": "^8.4.0",
     "typescript": "^5.8.2",
     "vitest": "^3.0.9"
@@ -47,6 +40,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/xdvi/l10n4x-js.git",
-    "directory": "packages/react"
+    "directory": "bindings/svelte"
   }
 }
