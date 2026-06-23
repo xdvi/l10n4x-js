@@ -93,7 +93,7 @@ if (l10n.otaCanRollback("en")) await l10n.otaRollback("en");
 await l10n.otaReloadNamespace("en", "common", namespacePakBytes);
 ```
 
-Requires WASM built from l10n4x **v0.3.0+** (`l10n4x_load_namespace_bytes`, `l10n4x_ota_*` exports).
+Requires WASM built from l10n4x **v0.2.0+** (`l10n4x_load_namespace_bytes`, `l10n4x_ota_*` exports).
 
 ## Enterprise adoption
 
