@@ -97,7 +97,7 @@ Requires WASM built from l10n4x **v0.2.0+** (`l10n4x_load_namespace_bytes`, `l10
 
 ## Enterprise adoption
 
-For governance, CI/CD, namespace ownership, OTA, and observability patterns (aligned with Angular compile-time i18n and SAP message-class workflows), see the [Enterprise Adoption Guide](https://github.com/xdvi/l10n4x/blob/main/docs/ENTERPRISE_ADOPTION.md) in the Rust repository.
+For governance, CI/CD, namespace ownership, OTA, and observability patterns, see the [Enterprise Adoption Guide](https://github.com/xdvi/l10n4x/blob/main/docs/ENTERPRISE_ADOPTION.md) in the Rust repository.
 
 ## License
 
