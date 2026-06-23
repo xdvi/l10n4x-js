@@ -36,11 +36,10 @@ jobs:
 
       - name: Build and link WASM
         run: |
-          wasm-pack build l10n4x/packages/wasm --target web --out-dir _wasm_pkg --out-name l10n4x
+          bash scripts/link-wasm.sh
           pnpm install
-          pnpm link-wasm
+          pnpm build
 
-      - run: pnpm build
       - run: pnpm test
       - run: pnpm typecheck
 
@@ -64,20 +63,20 @@ jobs:
           registry-url: https://registry.npmjs.org
           cache: pnpm
 
-      - run: pnpm install
-      - run: pnpm build
+      - name: Install Rust toolchain
+        uses: dtolnay/rust-toolchain@stable
 
-      - name: Publish @l10n4x/runtime
-        run: pnpm --filter @l10n4x/runtime publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Install wasm-pack
+        run: cargo install wasm-pack --locked
 
-      - name: Publish @l10n4x/react
-        run: pnpm --filter @l10n4x/react publish --access public --no-git-checks
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Checkout l10n4x (WASM source)
+        uses: actions/checkout@v4
+        with:
+          repository: xdvi/l10n4x
+          path: l10n4x
+          ref: main
 
-      - name: Publish @l10n4x/wasm
-        run: pnpm --filter @l10n4x/wasm publish --access public --no-git-checks
+      - name: Publish all packages
+        run: bash scripts/publish-all.sh --build-wasm --skip-tests
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

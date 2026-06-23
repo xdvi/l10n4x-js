@@ -1,0 +1,46 @@
+{
+  "name": "@l10n4x/angular",
+  "version": "0.2.0",
+  "description": "Angular bindings for l10n4x — service, pipe, providers",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": ["dist", "README.md"],
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --dts --external @angular/core --clean",
+    "test": "echo \"@l10n4x/angular: no unit tests yet\"",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@l10n4x/runtime": "workspace:*"
+  },
+  "peerDependencies": {
+    "@angular/core": ">=17",
+    "rxjs": ">=7",
+    "l10n4x-wasm": ">=0.2.0"
+  },
+  "peerDependenciesMeta": {
+    "l10n4x-wasm": { "optional": true }
+  },
+  "devDependencies": {
+    "@angular/core": "^19.1.0",
+    "rxjs": "^7.8.1",
+    "tsup": "^8.4.0",
+    "typescript": "^5.8.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xdvi/l10n4x-js.git",
+    "directory": "packages/angular"
+  }
+}

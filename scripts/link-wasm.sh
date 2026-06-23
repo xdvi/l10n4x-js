@@ -1,24 +1,33 @@
 #!/usr/bin/env bash
+# Build (if needed) and symlink wasm-pack output (l10n4x-wasm) into workspace packages.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 WASM_PKG="${ROOT}/_wasm_pkg"
 
-RUST_REPO="${ROOT}/../l10n4x"
+if [[ -d "${ROOT}/l10n4x/packages/wasm" ]]; then
+  RUST_REPO="${ROOT}/l10n4x"
+elif [[ -d "${ROOT}/../l10n4x/packages/wasm" ]]; then
+  RUST_REPO="${ROOT}/../l10n4x"
+else
+  RUST_REPO=""
+fi
 
 if [[ ! -f "${WASM_PKG}/package.json" ]]; then
-  if [[ -d "${RUST_REPO}/packages/wasm" ]]; then
+  if [[ -n "${RUST_REPO}" ]]; then
     echo "Building WASM from ${RUST_REPO}…"
-    (cd "${RUST_REPO}" && wasm-pack build packages/wasm --target web --out-dir "${WASM_PKG}" --out-name l10n4x)
+    wasm-pack build "${RUST_REPO}/packages/wasm" \
+      --target web \
+      --out-dir "${WASM_PKG}" \
+      --out-name l10n4x
   else
-    echo "error: _wasm_pkg/ missing and ${RUST_REPO} not found." >&2
+    echo "error: _wasm_pkg/ missing and l10n4x source not found." >&2
     echo "Run: wasm-pack build …/l10n4x/packages/wasm --target web --out-dir ${WASM_PKG} --out-name l10n4x" >&2
     exit 1
   fi
 fi
 
-# Wire workspace packages to the local wasm-pack output.
-for pkg in wasm runtime react; do
+for pkg in wasm runtime react vue svelte angular; do
   target="${ROOT}/packages/${pkg}/node_modules/l10n4x-wasm"
   mkdir -p "$(dirname "${target}")"
   rm -rf "${target}"
@@ -26,10 +35,12 @@ for pkg in wasm runtime react; do
 done
 
 for ex in vite-spa; do
-  target="${ROOT}/examples/${ex}/node_modules/l10n4x-wasm"
-  mkdir -p "$(dirname "${target}")"
-  rm -rf "${target}"
-  ln -sfn "${WASM_PKG}" "${target}"
+  if [[ -d "${ROOT}/examples/${ex}" ]]; then
+    target="${ROOT}/examples/${ex}/node_modules/l10n4x-wasm"
+    mkdir -p "$(dirname "${target}")"
+    rm -rf "${target}"
+    ln -sfn "${WASM_PKG}" "${target}"
+  fi
 done
 
 touch "${ROOT}/.wasm-linked"

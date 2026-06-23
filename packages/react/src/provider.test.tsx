@@ -20,6 +20,12 @@ vi.mock("@l10n4x/runtime", () => {
     setLocale: vi.fn(),
     isInitialized: vi.fn(() => false),
     getLoadedLocales: vi.fn(() => new Set(["en"])),
+    loadNamespace: vi.fn(async () => true),
+    getLoadedNamespaces: vi.fn(() => new Set<string>()),
+    otaReload: vi.fn(async () => undefined),
+    otaReloadNamespace: vi.fn(async () => undefined),
+    otaRollback: vi.fn(async () => undefined),
+    otaCanRollback: vi.fn(() => false),
   };
   return {
     createL10n: vi.fn(() => instance),
