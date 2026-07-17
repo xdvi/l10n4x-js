@@ -51,25 +51,44 @@ jobs:
       contents: read
       id-token: write
     steps:
+      # secrets can't be used in job-level `if`; gate here instead.
+      - name: Check NPM_TOKEN
+        id: npm
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          if [ -z "$NODE_AUTH_TOKEN" ]; then
+            echo "has_token=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::NPM_TOKEN not set — skipping publish"
+          else
+            echo "has_token=true" >> "$GITHUB_OUTPUT"
+          fi
+
       - uses: actions/checkout@v4
+        if: steps.npm.outputs.has_token == 'true'
 
       - uses: pnpm/action-setup@v4
+        if: steps.npm.outputs.has_token == 'true'
         with:
           version: 9.15.0
 
       - uses: actions/setup-node@v4
+        if: steps.npm.outputs.has_token == 'true'
         with:
           node-version: "20"
           registry-url: https://registry.npmjs.org
           cache: pnpm
 
       - name: Install Rust toolchain
+        if: steps.npm.outputs.has_token == 'true'
         uses: dtolnay/rust-toolchain@stable
 
       - name: Install wasm-pack
+        if: steps.npm.outputs.has_token == 'true'
         run: cargo install wasm-pack --locked
 
       - name: Checkout l10n4x (WASM source)
+        if: steps.npm.outputs.has_token == 'true'
         uses: actions/checkout@v4
         with:
           repository: xdvi/l10n4x
@@ -77,6 +96,7 @@ jobs:
           ref: main
 
       - name: Publish all packages
+        if: steps.npm.outputs.has_token == 'true'
         run: bash scripts/publish-all.sh --build-wasm --skip-tests
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
